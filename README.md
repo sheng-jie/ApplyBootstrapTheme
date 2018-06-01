@@ -16,19 +16,23 @@
 # 3. 替换模板
 基于AdminLTE进行开发，仅需要复制dist目录，及其依赖的bower包就可以了。
 第一步：我们清空wwwroot下的全部目录（我这边暂时保留了images文件夹，后面会用到）。
+
 第二步：然后复制dist目录到wwwroot下。
 
 其依赖的bower包是安装在bower_components目录下的。我们无需直接复制整个bower_components文件夹，我们复制bower.json包定义文件即可。
 
 第三步：复制AdminLTE下的bower.json到ASP.NET Core Mvc根目录下。
+
 第四步：使用VS2017打开项目后，我们可以看到VS2017已经可以识别到未安装的Bower包。
 ![](https://upload-images.jianshu.io/upload_images/2799767-1f0a17b5544864f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 右键就可以还原bower包。不过先慢着，我们现在还原就会直接还原bower包到根目录下了，并没有还原bower包到wwwroot文件夹下。
-第五步：新增.bowerrc文件，配置包安装路径即可（我们指定了wwwroot\bower_components，与原始AdminLTE的目录结构保持一致的好处是，可以直接迁移AdminLTE定义的示例页面。当然我们也可以按需指定）。如图所示：
-![配置bower包安装路径](https://upload-images.jianshu.io/upload_images/2799767-bc24a903fcbf869d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-第六步：Restore Package
-~~第七步：将bower_components包含到项目中。（这一步可先不做）~~
-![Include In Project](https://upload-images.jianshu.io/upload_images/2799767-19bd9d773c80842a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+第五步：新增.bowerrc文件，配置包安装路径即可。这里我们指定为了wwwroot\plugins。（这里没有指定为wwwroot\bower_components，与原始AdminLTE的目录结构保持一致，是因为如果指定为wwwroot\bower_components，还原包后bower_components默认不会包含在项目中。）
+
+第六步：Restore Package，还原成功后，我们会发现plugins文件夹已包含显示在wwwroot目录下了。
+
+![配置bower包安装路径](https://upload-images.jianshu.io/upload_images/2799767-e06f61298bcaab02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 # 4. 修改_Layout.cshtml
 接下来我们将AdminLTE的预置起始页面starter.html移植进我们的布局页面_Layout.cshtml。
@@ -40,7 +44,10 @@
 3. @RenderSection("Scripts", required: false)
 
 我们直接暴力复制starter.html的内容复制粘贴到_Layout.cshtml，然后再将以上三个点进行修改即可。然后修改引用的css、js路径即可。修改后的截图如下：
-![updated _Layout.cshtml](https://upload-images.jianshu.io/upload_images/2799767-ddf65f4f031b8610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![updated _Layout.cshtml](https://upload-images.jianshu.io/upload_images/2799767-dcce0e0795356c12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![updated _Layout.cshtml](https://upload-images.jianshu.io/upload_images/2799767-4ae340769cd35400.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 # 最终效果
 CTRL+F5运行效果图如下，至此我们成功完成AdminLTE主题的应用。DEMO已上传到[Github](https://github.com/yanshengjie/ApplyBootstrapTheme)。
